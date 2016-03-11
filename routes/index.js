@@ -8,7 +8,7 @@ return res.json("hello world");
 
 })
 
-router.post('/api/post/:soundvalue', function(req,res){
+router.get('/api/post/:soundvalue', function(req,res){
 
 var soundReading = req.params.soundvalue;
 console.log(soundReading);

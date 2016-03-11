@@ -47,7 +47,7 @@ router.get('/api/post/:soundvalue', function(req,res){
 
 router.get('/api/get/soundforlight', function(req,res){
 
-  Sound.findOne().sort({created_at: 1}).exec(function(err, data) { 
+  Sound.findOne().lean().sort({$natural: -1}).exec(function(err, data) { 
 
     if(err){
         var error = {
@@ -57,12 +57,14 @@ router.get('/api/get/soundforlight', function(req,res){
         return res.json(err)
       }
 
-      var jsonData = {
+    var jsonData = {
         status: "OK",
-        pins: data
+        sound: data
       }
 
-      return res.json(jsonData);
+    var obj = data;
+    var soundForLight = obj.soundLevel;
+    return res.json(soundForLight);
   });
 
 })

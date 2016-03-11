@@ -47,7 +47,7 @@ router.get('/api/post/:soundvalue', function(req,res){
 
 router.get('/api/get/soundforlight', function(req,res){
 
-  Sound.findOne().sort({created_at: 1}).exec(function(err, data) { 
+  Sound.findOne().sort({created_at: -1}).exec(function(err, data) { 
 
     if(err){
         var error = {

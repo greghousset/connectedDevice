@@ -12,36 +12,59 @@ return res.json("hello world");
 
 router.get('/api/post/:soundvalue', function(req,res){
 
-var soundReading = req.params.soundvalue;
-var soundInt = parseInt(soundReading);
-console.log(soundInt);
+  var soundReading = req.params.soundvalue;
+  var soundInt = parseInt(soundReading);
+  console.log(soundInt);
 
-var soundObject = {
-        soundLevel: soundInt
-    };
+  var soundObject = {
+          soundLevel: soundInt
+      };
 
-console.log(soundObject);
+  console.log(soundObject);
 
-var sound = new Sound(soundObject);
+  var sound = new Sound(soundObject);
 
-sound.save(function(err,data){
-    // if err saving, respond back with error
-    if (err){
-      var error = {status:'ERROR', message: 'Error saving sound'};
-      return res.json(error);
-    }
+  sound.save(function(err,data){
+      // if err saving, respond back with error
+      if (err){
+        var error = {status:'ERROR', message: 'Error saving sound'};
+        return res.json(error);
+      }
 
-    console.log('saved a new sound!');
-    console.log(data);
+      console.log('saved a new sound!');
+      console.log(data);
 
-    // now return the json data of the new animal
-    var jsonData = {
-      status: 'OK',
-      sound: data
-    }
+      // now return the json data of the new animal
+      var jsonData = {
+        status: 'OK',
+        sound: data
+      }
 
-    return res.json(jsonData);
+      return res.json(jsonData);
   }) 
+})
+
+
+router.get('/api/get/soundforlight', function(req,res){
+
+  Sound.findOne().sort({created_at: -1}).exec(function(err, post) { 
+
+    if(err){
+        var error = {
+          status: "ERROR",
+          message: err
+        }
+        return res.json(err)
+      }
+
+      var jsonData = {
+        status: "OK",
+        pins: data
+      }
+
+      return res.json(jsonData);
+  });
+
 })
 
 module.exports = router;

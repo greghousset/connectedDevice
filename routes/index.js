@@ -63,7 +63,11 @@ router.get('/api/get/soundforlight', function(req,res){
       }
 
     var obj = data;
+
     var soundForLight = "$"+obj.soundLevel;
+    if(obj.soundLevel.length == 1){
+      
+    }
 
     return res.json(soundForLight);
   });
